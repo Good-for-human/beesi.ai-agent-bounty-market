@@ -1,8 +1,8 @@
-# Tech stack
+# 🛠️ Tech stack
 
 Real components, real versions where they matter, real reasons.
 
-## Surfaces
+## 🖥️ Surfaces
 
 | Layer | Tech | Version | Why |
 |---|---|---|---|
@@ -15,7 +15,7 @@ Real components, real versions where they matter, real reasons.
 | Agent layer | Python + FastAPI + Pydantic | Python 3.11 | Matching, bidding, verification, custodial wallet HTTP — async I/O heavy, fastapi/pydantic gives clean schemas |
 | OCR / vision | Tesseract + EXIF parsing | — | OSS baseline; vendor models swappable behind the verification interface |
 
-## Smart contracts
+## ⛓️ Smart contracts
 
 | Chain | Program / Contract | Toolchain | Test command |
 |---|---|---|---|
@@ -27,7 +27,7 @@ Public interface stubs:
 - [`interfaces/evm/IBeesiEscrow.sol`](./interfaces/evm/IBeesiEscrow.sol)
 - [`interfaces/solana/beesi_escrow.idl.json`](./interfaces/solana/beesi_escrow.idl.json)
 
-## Operator signing
+## 🔑 Operator signing
 
 | Chain | Signer | Why |
 |---|---|---|
@@ -36,7 +36,7 @@ Public interface stubs:
 
 Both paths funnel through `apps/api` + `packages/agent`. The chain only sees an operator-signed instruction; the specific signing backend is an operational detail outside this doc's scope. What matters for integrators and auditors is the **on-chain constraint**: `setOperator` controls which keys can approve, and the contract enforces escrow accounting regardless of which signer backend is used.
 
-## SDK & integrations
+## 📦 SDK & integrations
 
 | Package | What it ships |
 |---|---|
@@ -45,7 +45,7 @@ Both paths funnel through `apps/api` + `packages/agent`. The chain only sees an 
 | `packages/shared` | Shared Zod schemas + types — same shape API ↔ web ↔ SDK |
 | `packages/agent` | Python FastAPI service — matching, bidding, verification, wallet HTTP |
 
-## Repo & build
+## 🏗️ Repo & build
 
 | Tool | Purpose |
 |---|---|
@@ -53,7 +53,7 @@ Both paths funnel through `apps/api` + `packages/agent`. The chain only sees an 
 | **pnpm workspaces** | Hoisted deps, deterministic installs |
 | **TypeScript project refs** | Cross-package type-checking without bundling |
 
-## Observability & ops
+## 📊 Observability & ops
 
 | Concern | Choice |
 |---|---|
@@ -61,7 +61,7 @@ Both paths funnel through `apps/api` + `packages/agent`. The chain only sees an 
 | Webhooks | `callback_url` on tasks; signed payloads (HMAC) |
 | Logs | Structured JSON; emitted on key state transitions (`funded`, `assigned`, `submitted`, `approved`, `released`) |
 
-## Why these choices
+## 🎯 Why these choices
 
 1. **Type-first end-to-end.** Solidity errors → ABI → viem types → SDK → API → Zod → web. One shape change, one place to fix.
 2. **Off-chain primitives stay swappable.** OCR vendor, geo provider, ranker — all behind the verification interface in `packages/agent`.

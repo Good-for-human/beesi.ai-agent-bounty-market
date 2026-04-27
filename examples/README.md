@@ -1,15 +1,15 @@
-# Examples
+# 🧪 Examples
 
 Real, runnable TypeScript samples. None contain hard-coded secrets; replace the `API_BASE`, RPC URLs, and key sources before running against a real network.
 
-## Install
+## 📦 Install
 
 ```bash
 cd examples
 pnpm i      # or: npm i / yarn / bun i
 ```
 
-## Scripts
+## 🚀 Scripts
 
 | Script | What it does |
 |---|---|
@@ -19,7 +19,7 @@ pnpm i      # or: npm i / yarn / bun i
 | `pnpm webhook` | `src/webhook-receiver.ts` — Fastify server that verifies HMAC signatures on lifecycle webhooks |
 | `pnpm typecheck` | `tsc --noEmit` over `src/` |
 
-## Environment
+## 🔑 Environment
 
 Copy from your own secrets store; **do not** commit `.env`.
 
@@ -41,7 +41,7 @@ PROGRAM_ID=...
 USDC_MINT=...
 ```
 
-## What these examples do *not* do
+## ⚠️ What these examples do *not* do
 
 - **Production secrets management.** Use a real KMS / HSM for operator keys.
 - **Webhook replay protection** beyond HMAC verification — add idempotency keys for production.

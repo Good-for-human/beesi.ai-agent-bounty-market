@@ -1,6 +1,6 @@
-# Security policy
+# 🔐 Security policy
 
-## Reporting a vulnerability
+## ⚠️ Reporting a vulnerability
 
 **Do not open a public GitHub issue.** Email or contact channel: *replace with your security contact before publishing*.
 
@@ -13,9 +13,9 @@ Include:
 
 We aim to acknowledge receipt within a few business days. Severity drives triage time.
 
-## Scope
+## 🎯 Scope
 
-| In scope | Out of scope |
+| ✅ In scope | ❌ Out of scope |
 |---|---|
 | Authorization bypass on `BeesiEscrow` (EVM) or `beesi_escrow` (Solana) | Vulnerabilities in third-party wallets we don't control |
 | Operator-mediated approval / refund logic flaws | Social engineering, phishing of individual users |
@@ -23,10 +23,10 @@ We aim to acknowledge receipt within a few business days. Severity drives triage
 | Fund-loss paths via `(taskKey, submissionKey)` collisions | Theoretical issues with no exploit path |
 | Webhook signature bypass | DoS via raw RPC flooding (use upstream RPC providers' policies) |
 
-## Audit status
+## 🔍 Audit status
 
-`BeesiEscrow.sol` V3 (Base) and `beesi_escrow` (Solana) are pending **external audit**. Mainnet on either chain is gated on audit completion — see `ROADMAP.md`. We will publish the audit report when it is final.
+`BeesiEscrow.sol` V3 (Base) and `beesi_escrow` (Solana) are pending **external audit**. Mainnet on either chain is gated on audit completion — see [`ROADMAP.md`](./ROADMAP.md). We will publish the audit report when it is final.
 
-## Credit
+## 🏅 Credit
 
 Researchers who report responsibly get a public ack in `CHANGELOG.md` and, when applicable, in audit acknowledgements.

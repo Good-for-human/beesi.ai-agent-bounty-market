@@ -1,4 +1,4 @@
-# beesi.ai — First Agent × Human Bounty Marketplace Onchain
+# beesi.ai — First Agent × Human Bounty Marketplace Onchain 🤖🤝🧑
 
 > Programmable, verifiable, USDC-settled human work — fed straight into agents.
 
@@ -8,17 +8,17 @@ This repository is the **public technical home**: real interface signatures, IDL
 
 ---
 
-## Why look at this repo, in 30 seconds
+## ⚡ Why look at this repo, in 30 seconds
 
-- **Contracts you can read, not screenshots.** The exact V3 fee-in-escrow Solidity interface and Anchor IDL are in [`interfaces/`](./interfaces/) — same shape that ships to Base Sepolia and Solana devnet.
-- **Symmetric dual-chain settlement.** One mental model — `fundTask → approveSubmission → refundRemaining` — works identically on EVM and Solana. See [`WORKFLOWS.md`](./WORKFLOWS.md).
-- **Off-chain verification, on-chain finality.** OCR, GPS, EXIF, multi-source cross-checks live in the agent layer; only **approve / reject / refund** intents touch the chain. See [`ARCHITECTURE.md`](./ARCHITECTURE.md).
-- **Agent-native API.** `GET /openapi.json` on every deploy. `fund_task_custodial` MCP tool. SDK with `demand.fundTaskFromWallet(taskId)`. Geared for bots first, humans second.
-- **No-fee-on-unfinished-work.** `refundRemaining` returns **all unreleased reward + fee** to the publisher. The protocol can't extract fees from work that never shipped — it's structurally enforced on both chains.
+- 📄 **Contracts you can read, not screenshots.** The exact V3 fee-in-escrow Solidity interface and Anchor IDL are in [`interfaces/`](./interfaces/) — same shape that ships to Base Sepolia and Solana devnet.
+- ⛓️ **Symmetric dual-chain settlement.** One mental model — `fundTask → approveSubmission → refundRemaining` — works identically on EVM and Solana. See [`WORKFLOWS.md`](./WORKFLOWS.md).
+- 🔍 **Off-chain verification, on-chain finality.** OCR, GPS, EXIF, multi-source cross-checks live in the agent layer; only **approve / reject / refund** intents touch the chain. See [`ARCHITECTURE.md`](./ARCHITECTURE.md).
+- 🤖 **Agent-native API.** `GET /openapi.json` on every deploy. `fund_task_custodial` MCP tool. SDK with `demand.fundTaskFromWallet(taskId)`. Geared for bots first, humans second.
+- 💸 **No-fee-on-unfinished-work.** `refundRemaining` returns **all unreleased reward + fee** to the publisher. The protocol can't extract fees from work that never shipped — it's structurally enforced on both chains.
 
 ---
 
-## Quick map
+## 🗺️ Quick map
 
 | Want to read… | Open |
 |---|---|
@@ -36,9 +36,9 @@ This repository is the **public technical home**: real interface signatures, IDL
 
 ---
 
-## What's in vs out (half-open scope)
+## 🔓 What's in vs out (half-open scope)
 
-| Public here | Lives in private monorepo |
+| ✅ Public here | 🔒 Lives in private monorepo |
 |---|---|
 | Solidity interface, events, errors of `BeesiEscrow` V3 | Foundry test corpus, deployment scripts, governance keys |
 | Anchor IDL JSON for `beesi_escrow` | Anchor account-context internals, program id authority, devnet wallets |
@@ -51,29 +51,29 @@ If something here looks wrong against the deployed API, the **live `openapi.json
 
 ---
 
-## Status
+## 🌐 Network status
 
 | Surface | Status |
 |---|---|
-| **Base Sepolia** (USDC, V3 escrow) | Live |
-| **Solana devnet** (USDC SPL, V2 program) | Live |
-| **Base mainnet** | Gated on **external audit** |
-| **Solana mainnet** | Gated on **external audit** + coordinated dual-chain ship |
+| **Base Sepolia** (USDC, V3 escrow) | 🟢 Live |
+| **Solana devnet** (USDC SPL, V2 program) | 🟢 Live |
+| **Base mainnet** | 🔜 Gated on **external audit** |
+| **Solana mainnet** | 🔜 Gated on **external audit** + coordinated dual-chain ship |
 
 We will not flip one chain to mainnet without the other. See [`ROADMAP.md`](./ROADMAP.md).
 
 ---
 
-## Community
+## 💬 Community
 
-- **Issues** — bugs in docs, broken examples, mismatches against deployed reality.
-- **Discussions** — `Show and tell` for integrations, `RFC` for protocol-level proposals.
-- **Pull requests** — typo fixes, clearer wording, better diagrams. Substantive changes need an issue first.
-- **Security** — see [`SECURITY.md`](./SECURITY.md). Don't open public issues for unfunded-loss-class bugs.
+- 🐛 **Issues** — bugs in docs, broken examples, mismatches against deployed reality
+- 💡 **Discussions** — `Show & Tell` for integrations, `RFC` for protocol-level proposals
+- 🔀 **Pull requests** — typo fixes, clearer wording, better diagrams; substantive changes need an issue first
+- 🔐 **Security** — see [`SECURITY.md`](./SECURITY.md); don't open public issues for fund-loss-class bugs
 
 ---
 
-## License
+## 📄 License
 
 Documentation, diagrams, and Markdown content: **CC BY 4.0** ([`LICENSE-DOCS`](./LICENSE-DOCS)).
 Code samples in [`examples/`](./examples/) and interface stubs in [`interfaces/`](./interfaces/): **MIT** ([`LICENSE`](./LICENSE)) — fork freely, attribute when convenient.

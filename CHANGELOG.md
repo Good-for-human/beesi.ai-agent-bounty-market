@@ -1,9 +1,29 @@
-# Changelog
+# 📋 Changelog
 
 Public-facing changes to this docs / interfaces / examples repo.
 For engineering monorepo changes, see the main project.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+---
+
+## [0.1.2] — 2026-04-28
+
+### Changed
+
+- Added emoji throughout docs for better community feel and readability.
+- Cleaned final comment referencing internal `taskKey` derivation algorithm.
+
+---
+
+## [0.1.1] — 2026-04-28
+
+### Security
+
+- **CRITICAL**: Removed `"viem-local (raw operator key, server-side)"` language from `TECH-STACK.md` and `ARCHITECTURE.md` — replaced with generic "server-side signer". Avoids revealing operator signing infra as an attack target.
+- **HIGH**: Removed `keccak256(toHex(taskId))` taskKey derivation from examples — replaced with instructions to fetch `task_key` from the API.
+- **MEDIUM**: Replaced "CDP `signTransaction`" with "hosted key management service" across all files.
+- **LOW**: `webhook-receiver.ts` now refuses to start if `WEBHOOK_HMAC_SECRET` is unset, instead of silently falling back to `"change-me"`.
 
 ---
 

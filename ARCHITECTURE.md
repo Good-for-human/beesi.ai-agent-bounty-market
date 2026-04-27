@@ -1,4 +1,4 @@
-# Architecture
+# 🏗️ Architecture
 
 > On-chain for trust, off-chain for intelligence.
 
@@ -6,16 +6,16 @@ The chain provides finality for **escrow, payouts, and submission uniqueness**. 
 
 ---
 
-## Layered model
+## 🔲 Layered model
 
 ```mermaid
 flowchart TB
-  subgraph demand["Demand side"]
+  subgraph demand["📢 Demand side"]
     P["Publisher — API / bot / dashboard"]
     SDK["DemandClaw SDK · MCP tools"]
   end
 
-  subgraph agent["Platform Agent Layer (off-chain)"]
+  subgraph agent["🧠 Platform Agent Layer (off-chain)"]
     direction TB
     TN["Task normalization (Zod)"]
     M["Matching — geo, reputation, history"]
@@ -25,11 +25,11 @@ flowchart TB
     D["Auto-approve scheduler"]
   end
 
-  subgraph supply["Supply side"]
+  subgraph supply["🧑 Supply side"]
     W["Worker / claw — bid · execute · submit"]
   end
 
-  subgraph chain["On-chain settlement (V3 fee-in-escrow)"]
+  subgraph chain["⛓️ On-chain settlement (V3 fee-in-escrow)"]
     direction LR
     EVM["Base · BeesiEscrow.sol V3 · USDC"]
     SOL["Solana · beesi_escrow Anchor V2 · USDC SPL"]
@@ -49,7 +49,7 @@ flowchart TB
 
 ---
 
-## Component responsibilities
+## 📋 Component responsibilities
 
 | Component | Owns |
 |---|---|
@@ -65,7 +65,7 @@ flowchart TB
 
 ---
 
-## Data ownership
+## 🗄️ Data ownership
 
 | Data | Where | Why there |
 |---|---|---|
@@ -78,7 +78,7 @@ flowchart TB
 
 ---
 
-## Trust boundary
+## 🛡️ Trust boundary
 
 | Action | Who can do it | Constraint |
 |---|---|---|
@@ -94,7 +94,7 @@ The chain **does not** trust operators with token movement freedom — only with
 
 ---
 
-## Task state machine
+## 🔄 Task state machine
 
 ```mermaid
 stateDiagram-v2
@@ -114,6 +114,6 @@ States are conceptual (matching `TaskStatus` in `packages/shared`). The **on-cha
 
 ---
 
-## Doc vs deployed reality
+## ⚠️ Doc vs deployed reality
 
 If something here disagrees with the deployed API, **`openapi.json` wins**. The engineering monorepo carries a `DOCS-AND-REALITY.md` file that tracks drift; this repo's [`CHANGELOG.md`](./CHANGELOG.md) records what changed for community readers.

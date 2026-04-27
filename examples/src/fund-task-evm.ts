@@ -5,8 +5,8 @@
  * Steps:
  *   1. Create the task off-chain (`POST /v1/tasks`) → returns task_id.
  *   2. Resolve escrow + token addresses (`GET /v1/escrow/config`).
- *   3. Compute taskKey = keccak256(task_id) (this matches the platform's convention; confirm
- *      against your deployment's actual derivation if it has changed).
+ *   3. Fetch the canonical taskKey from the platform API (do NOT derive it locally —
+ *      the algorithm is an implementation detail; always read it from the task object).
  *   4. Approve USDC allowance to the escrow (one-time per token + spender).
  *   5. Call BeesiEscrow.fundTask(...) with (rewardPerCompletion + feePerCompletion) * maxInstances
  *      already approved.

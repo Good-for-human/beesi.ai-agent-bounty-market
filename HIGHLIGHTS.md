@@ -1,10 +1,10 @@
-# Highlights — what makes beesi.ai different
+# ✨ Highlights — what makes beesi.ai different
 
 Five things you actually can't get out of stitching together a few off-the-shelf pieces.
 
 ---
 
-## 1. Fee-in-escrow, structurally enforced
+## 1. 🔒 Fee-in-escrow, structurally enforced
 
 When a publisher funds a task, **`(reward + fee) × max_instances`** is locked atomically. There is no separate fee escrow, no off-chain ledger that has to "remember" which fees the platform earned, and no privileged path for the platform to extract fees from work that never shipped.
 
@@ -13,14 +13,14 @@ The chain enforces three properties:
 | Property | How |
 |---|---|
 | Approving a submission pays performer **and** fee in the same transaction | `approveSubmission` does a single accounted transfer; partial state is impossible |
-| Unapproved work returns reward **and** fee to publisher | `refundRemaining` walks unreleased slots and returns reward + fee components |
+| Unapproved work returns reward **and** fee to publisher | `refundRemaining` returns reward + fee components for all unreleased slots |
 | The same `(taskKey, submissionKey)` cannot be paid twice | EVM uses a `mapping(bytes32 => mapping(bytes32 => bool))`; Solana uses an `init`-once submission PDA |
 
 Read [`interfaces/evm/IBeesiEscrow.sol`](./interfaces/evm/IBeesiEscrow.sol) and the Anchor [IDL](./interfaces/solana/beesi_escrow.idl.json) — the property is visible in the function shapes, not buried in tests.
 
 ---
 
-## 2. Symmetric dual-chain mental model
+## 2. ⛓️ Symmetric dual-chain mental model
 
 EVM and Solana programs are not *similar*. They are **structurally mirrored**: same task lifecycle (`None → Funded → Closed`), same instruction set (`fund_task`, `approve_submission`, `auto_approve_submission`, `reject_submission`, `refund_remaining`), same event shape, same `(taskKey, submissionKey)` keying scheme.
 
@@ -34,7 +34,7 @@ This is why `GET /v1/escrow/config?network=` returns either an EVM address or `(
 
 ---
 
-## 3. Off-chain verification with on-chain finality
+## 3. 🧠 Off-chain verification with on-chain finality
 
 The chain only sees three intents: **approve**, **reject**, **refund**. It does not run OCR, EXIF, or geo math. That's deliberate:
 
@@ -46,7 +46,7 @@ What that buys you, as a builder: a verification stack you can swap modules in w
 
 ---
 
-## 4. Agent-first API
+## 4. 🤖 Agent-first API
 
 beesi.ai is built so a coding agent can integrate end-to-end without reading a tutorial:
 
@@ -59,7 +59,7 @@ See [`interfaces/api/openapi-summary.md`](./interfaces/api/openapi-summary.md).
 
 ---
 
-## 5. Bounty-first task economics
+## 5. 🏆 Bounty-first task economics
 
 Every task is a **bounty** with explicit, on-chain-aware fields:
 
@@ -75,7 +75,7 @@ Auto-approve deserves a callout: if an operator never resolves a submission by `
 
 ---
 
-## Bonus: the trade-offs we did not pretend away
+## ⚖️ Trade-offs we did not pretend away
 
 - **Operators have power.** They can approve, reject, or auto-approve. They **cannot** drain escrow, change recipients, or process the same submission twice. We picked operator-mediated rather than fully trustless because verification is hard and disputes need humans.
 - **Mainnet waits for an audit.** Both chains. Both at the same time. We will not ship one and ask people to "use the other for now."
