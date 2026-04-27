@@ -24,13 +24,14 @@ const TASK_SEED = Buffer.from("task");
 const VAULT_SEED = Buffer.from("vault");
 const CONFIG_SEED = Buffer.from("config");
 
-function taskKeyFrom(taskId: string): Uint8Array {
-  // Illustrative: many deployments derive a 32-byte key from the task_id string.
-  // Confirm with your API how task_key is derived for Solana (often: sha256 / keccak256 truncated to 32 bytes).
-  const enc = new TextEncoder().encode(taskId);
-  const out = new Uint8Array(32);
-  out.set(enc.subarray(0, Math.min(32, enc.length)));
-  return out;
+async function taskKeyFrom(taskId: string, apiBase: string): Promise<Uint8Array> {
+  // Fetch the canonical task_key from the platform API.
+  // DO NOT derive the key locally — the derivation algorithm is an implementation detail
+  // and may change between versions. Always read it from the task object.
+  const task = await fetch(`${apiBase}/v1/tasks/${taskId}`).then((r) => r.json());
+  const hex: string = task.task_key_hex ?? task.task_key;
+  if (!hex) throw new Error(`task_key not found in task ${taskId} — check your API response`);
+  return Uint8Array.from(Buffer.from(hex.replace(/^0x/, ""), "hex"));
 }
 
 async function main() {
@@ -65,7 +66,7 @@ async function main() {
   // const program = new Program(idl as any, programId, provider);
 
   // 4. Derive PDAs
-  const taskKey = taskKeyFrom(taskId);
+  const taskKey = await taskKeyFrom(taskId, API_BASE);
   const [configPda] = PublicKey.findProgramAddressSync([CONFIG_SEED], programId);
   const [taskPda] = PublicKey.findProgramAddressSync([TASK_SEED, taskKey], programId);
   const [vaultPda] = PublicKey.findProgramAddressSync([VAULT_SEED, taskKey], programId);

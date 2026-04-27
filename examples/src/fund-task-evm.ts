@@ -15,7 +15,7 @@
  * Replace placeholder env values before running.
  */
 
-import { createPublicClient, createWalletClient, http, parseUnits, keccak256, toHex } from "viem";
+import { createPublicClient, createWalletClient, http, parseUnits } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { baseSepolia } from "viem/chains";
 
@@ -76,8 +76,15 @@ async function main() {
   const escrow = cfg.escrow_address as `0x${string}`;
   const usdc = cfg.token_address as `0x${string}`;
 
-  // 3. taskKey (illustrative — confirm derivation against your deployment)
-  const taskKey = keccak256(toHex(taskId));
+  // 3. taskKey — DO NOT ASSUME the derivation algorithm.
+  //    Call your deployment's API or SDK to obtain the canonical taskKey for a given task_id.
+  //    The exact derivation is an implementation detail that may differ across deployments
+  //    and versions. Guessing it or hard-coding a formula here would be wrong.
+  //
+  //    Example (replace with your deployment's actual helper):
+  //    const { task_key_hex } = await fetch(`${API_BASE}/v1/tasks/${taskId}`).then(r => r.json());
+  //    const taskKey = task_key_hex as `0x${string}`;
+  throw new Error("Replace this block: fetch taskKey from your API instead of deriving it locally.");
 
   // 4. Approve allowance for (reward + fee) * max
   const reward = parseUnits("1", 6);   // USDC has 6 decimals

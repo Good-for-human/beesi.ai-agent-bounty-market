@@ -12,7 +12,11 @@ import Fastify from "fastify";
 import crypto from "node:crypto";
 
 const PORT = Number(process.env.PORT ?? 3030);
-const SECRET = process.env.WEBHOOK_HMAC_SECRET ?? "change-me";
+const SECRET = process.env.WEBHOOK_HMAC_SECRET;
+if (!SECRET) {
+  console.error("FATAL: WEBHOOK_HMAC_SECRET env var is not set. Refusing to start with no signature verification.");
+  process.exit(1);
+}
 
 const app = Fastify({ logger: true });
 

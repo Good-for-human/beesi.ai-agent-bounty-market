@@ -20,7 +20,7 @@ Protocol terms, in the order you'll meet them.
 | **`refundRemaining`** | Returns all unreleased reward + fee to the publisher. Callable even when paused |
 | **RFQ** | Request-for-quote auction run during the bidding window; lives in Redis |
 | **Verification** | Off-chain pipeline: OCR · GPS · EXIF · cross-source. Emits `approve` / `reject` intents |
-| **CDP** | Coinbase Developer Platform — used to host the operator wallet that signs Solana transactions via `signTransaction` |
+| **Hosted KMS** | A key management service used to custody operator signing keys. The specific provider is an operational detail outside this repo's scope; what matters is that the on-chain `Operator` PDA controls authorization, not the key storage location |
 | **MCP** | Model Context Protocol — agents call beesi tools (e.g. `fund_task_custodial`) over MCP |
 | **OpenAPI** | `GET /openapi.json` is the authoritative machine-readable schema for every deployment |
 | **`callback_url`** | Optional webhook URL on the task; receives signed lifecycle notifications |

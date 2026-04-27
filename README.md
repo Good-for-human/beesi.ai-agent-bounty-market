@@ -42,7 +42,7 @@ This repository is the **public technical home**: real interface signatures, IDL
 |---|---|
 | Solidity interface, events, errors of `BeesiEscrow` V3 | Foundry test corpus, deployment scripts, governance keys |
 | Anchor IDL JSON for `beesi_escrow` | Anchor account-context internals, program id authority, devnet wallets |
-| OpenAPI summary, fund/approve/refund flows | Hosted API code, signing infra (CDP for Solana operator, viem-local for EVM) |
+| OpenAPI summary, fund/approve/refund flows | Hosted API code, operator signing backend implementation |
 | Verification design (OCR / GPS / EXIF / cross-source) | Heuristic weights, fraud-detection thresholds, vendor configs |
 | Bounty model, RFQ semantics, state machine | Match scoring, bidding ranker, supplier reputation graph |
 | TypeScript examples that compile against `viem` and `@solana/web3.js` | Production SDK packages and webhook signing secrets |

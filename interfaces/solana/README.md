@@ -42,4 +42,4 @@ Returns `{ chain: "solana-devnet", program_id: "...", token_mint: "...USDC SPL" 
 
 - Reference implementation: `anchor/programs/beesi-escrow/src/lib.rs`.
 - Test suite: `cd anchor && anchor test`.
-- Operator signing in production goes through **CDP `signTransaction`**; the program does not care about the signing path, only that the signer is an enabled operator.
+- Operator signing in production goes through a hosted key management service; the program does not care about the signing backend — only that the signer is an enabled operator per the on-chain `Operator` PDA.

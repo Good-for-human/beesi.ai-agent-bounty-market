@@ -31,10 +31,10 @@ Public interface stubs:
 
 | Chain | Signer | Why |
 |---|---|---|
-| EVM | viem-local (raw operator key, server-side) | Standard for backend-driven txs; rotated via `setOperator` on-chain |
-| Solana | **CDP `signTransaction`** (Coinbase Developer Platform) | Hosted custody for the operator wallet; no raw key on app servers |
+| EVM | Server-side signer (key rotation handled via `setOperator` on-chain) | Keeps signing off the publisher path; operator authority is on-chain, not key-location-dependent |
+| Solana | Hosted key management service | No raw key on application servers; operator authority is still the on-chain `Operator` PDA |
 
-Both paths funnel through `apps/api` + `packages/agent`. The chain only sees an operator-signed instruction; *how* it was signed is an infra detail.
+Both paths funnel through `apps/api` + `packages/agent`. The chain only sees an operator-signed instruction; the specific signing backend is an operational detail outside this doc's scope. What matters for integrators and auditors is the **on-chain constraint**: `setOperator` controls which keys can approve, and the contract enforces escrow accounting regardless of which signer backend is used.
 
 ## SDK & integrations
 

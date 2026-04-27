@@ -60,7 +60,7 @@ flowchart TB
 | **Assignment** | Mints assignment records and notifies winner(s) |
 | **Verification** | Runs evidence checks; emits `approve` / `reject` intents |
 | **Auto-approve scheduler** | Calls `autoApproveSubmission` past `autoApproveAt` if no human ruling |
-| **Operator signer** | Translates intents into signed transactions (viem-local on EVM, CDP on Solana) |
+| **Operator signer** | Translates approve/reject/refund intents into signed on-chain transactions |
 | **Escrow contract** | Holds USDC, enforces `(reward + fee) × max` lock, atomic payout, and refund |
 
 ---

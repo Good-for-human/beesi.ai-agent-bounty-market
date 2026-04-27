@@ -26,7 +26,7 @@ Copy from your own secrets store; **do not** commit `.env`.
 ```bash
 # common
 API_BASE=https://<your-deployment>.example
-WEBHOOK_HMAC_SECRET=...
+WEBHOOK_HMAC_SECRET=<required — webhook receiver will refuse to start without this>
 
 # EVM
 EVM_RPC_URL=https://sepolia.base.org
