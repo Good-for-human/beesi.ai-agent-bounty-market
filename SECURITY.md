@@ -1,17 +1,32 @@
-# Security
+# Security policy
 
 ## Reporting a vulnerability
 
-Please **do not** open a public issue for security-sensitive reports.
+**Do not open a public GitHub issue.** Email or contact channel: *replace with your security contact before publishing*.
 
-- Email or contact channel: *add your security@ or bug-bounty program URL here*
-- Include: affected component, steps to reproduce, impact assessment, and whether you need coordinated disclosure.
+Include:
 
-We aim to acknowledge receipt within a few business days; timelines depend on severity and team capacity.
+- Affected component (contract / program / API / SDK / docs).
+- Reproduction steps with concrete values; concrete is better than abstract.
+- Impact assessment, especially for fund-loss-class issues.
+- Whether you need coordinated disclosure and a public ack.
+
+We aim to acknowledge receipt within a few business days. Severity drives triage time.
 
 ## Scope
 
-- **In scope:** Authentication mistakes, authorization bypasses, fund-flow issues, API abuse that leads to loss of funds or data, dependency issues you can tie to this documentation’s published integration surface.
-- **Out of scope:** Social engineering, physical attacks, issues in third-party wallets not controlled by the project, or theoretical issues with no practical exploit path.
+| In scope | Out of scope |
+|---|---|
+| Authorization bypass on `BeesiEscrow` (EVM) or `beesi_escrow` (Solana) | Vulnerabilities in third-party wallets we don't control |
+| Operator-mediated approval / refund logic flaws | Social engineering, phishing of individual users |
+| API auth / token leakage in surfaces documented here | Issues in unmaintained forks |
+| Fund-loss paths via `(taskKey, submissionKey)` collisions | Theoretical issues with no exploit path |
+| Webhook signature bypass | DoS via raw RPC flooding (use upstream RPC providers' policies) |
 
-Update this file with your org’s real contact and policy before publicizing the repository.
+## Audit status
+
+`BeesiEscrow.sol` V3 (Base) and `beesi_escrow` (Solana) are pending **external audit**. Mainnet on either chain is gated on audit completion — see `ROADMAP.md`. We will publish the audit report when it is final.
+
+## Credit
+
+Researchers who report responsibly get a public ack in `CHANGELOG.md` and, when applicable, in audit acknowledgements.

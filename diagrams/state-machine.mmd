@@ -1,0 +1,11 @@
+stateDiagram-v2
+    [*] --> pending: POST /v1/tasks
+    pending --> funded: fundTask onchain
+    funded --> open: registered with matching
+    open --> evaluating: submission received
+    evaluating --> approved: verifier accepts
+    evaluating --> rejected: verifier rejects
+    approved --> released: approveSubmission tx confirmed
+    rejected --> refunded: refundRemaining tx confirmed
+    released --> [*]
+    refunded --> [*]

@@ -1,0 +1,26 @@
+{
+  "name": "@beesi/examples",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Runnable integration examples for beesi.ai — fund / bid / submit / webhook.",
+  "type": "module",
+  "scripts": {
+    "fund:evm": "tsx src/fund-task-evm.ts",
+    "fund:solana": "tsx src/fund-task-solana.ts",
+    "bid": "tsx src/bid-and-submit.ts",
+    "webhook": "tsx src/webhook-receiver.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.31.0",
+    "@solana/spl-token": "^0.4.6",
+    "@solana/web3.js": "^1.95.0",
+    "fastify": "^4.28.0",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0",
+    "@types/node": "^20.14.0"
+  }
+}

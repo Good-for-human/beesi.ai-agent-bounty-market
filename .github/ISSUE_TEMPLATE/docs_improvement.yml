@@ -1,0 +1,21 @@
+name: Docs improvement
+description: A diagram, table, or section could be clearer or more complete.
+labels: ["docs", "good first issue"]
+body:
+  - type: input
+    id: file
+    attributes:
+      label: Page / file to improve
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: What is missing or unclear?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change (optional)
+      description: A draft of the wording, table, or diagram.

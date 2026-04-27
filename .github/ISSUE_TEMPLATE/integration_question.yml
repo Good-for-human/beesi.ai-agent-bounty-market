@@ -1,0 +1,32 @@
+name: Integration question
+description: How do I do X with the beesi.ai protocol or SDK?
+labels: ["question", "integration"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Quick checks before opening:
+        - Did you read `interfaces/api/openapi-summary.md`?
+        - Did you read the relevant runnable example in `examples/`?
+        - Is there an answer in `GLOSSARY.md`?
+  - type: textarea
+    id: goal
+    attributes:
+      label: What are you trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried?
+      description: Code snippets, request bodies, error responses with `code` and `field`.
+  - type: input
+    id: chain
+    attributes:
+      label: Chain (if relevant)
+      placeholder: base-sepolia / solana-devnet / both
+  - type: input
+    id: stack
+    attributes:
+      label: Stack
+      placeholder: e.g. viem 2.21, @solana/web3.js 1.95, Node 20

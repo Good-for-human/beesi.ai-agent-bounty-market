@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Show & Tell — share your beesi.ai integration
+    url: https://github.com/Good-for-human/beesi.ai-agent-bounty-market/discussions/categories/show-and-tell
+    about: Built something on beesi.ai? Show it off in Discussions.
+  - name: RFC — propose a protocol-level change
+    url: https://github.com/Good-for-human/beesi.ai-agent-bounty-market/discussions/categories/rfc
+    about: Architectural ideas, breaking changes, new task modes — discuss in RFC.
+  - name: Security disclosure
+    url: ./SECURITY.md
+    about: Do NOT open public issues for fund-loss-class bugs. See SECURITY.md.

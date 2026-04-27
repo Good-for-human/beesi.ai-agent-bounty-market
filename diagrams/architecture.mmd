@@ -1,0 +1,36 @@
+flowchart TB
+  subgraph demand["Demand side"]
+    P["Publisher — API / bot / dashboard"]
+    SDK["DemandClaw SDK · MCP tools"]
+  end
+
+  subgraph agent["Platform Agent Layer (off-chain)"]
+    direction TB
+    TN["Task normalization (Zod)"]
+    M["Matching — geo, reputation, history"]
+    B["Bidding — RFQ / auction"]
+    A["Assignment"]
+    V["Verification — OCR · GPS · EXIF · multi-source"]
+    D["Auto-approve scheduler"]
+  end
+
+  subgraph supply["Supply side"]
+    W["Worker / claw — bid · execute · submit"]
+  end
+
+  subgraph chain["On-chain settlement (V3 fee-in-escrow)"]
+    direction LR
+    EVM["Base · BeesiEscrow.sol V3 · USDC"]
+    SOL["Solana · beesi_escrow Anchor V2 · USDC SPL"]
+  end
+
+  P --> TN
+  SDK --> TN
+  TN --> M --> B --> A --> V
+  W --> B
+  W --> A
+  W -->|"submit evidence"| V
+  V -->|"approve / reject"| EVM
+  V -->|"approve / reject"| SOL
+  D -->|"autoApprove past deadline"| EVM
+  D -->|"autoApprove past deadline"| SOL

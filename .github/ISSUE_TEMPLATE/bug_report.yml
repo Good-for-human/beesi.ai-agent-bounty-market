@@ -1,0 +1,41 @@
+name: Bug — docs / examples / interfaces
+description: Something here is wrong, broken, or contradicts deployed reality.
+labels: ["bug", "docs"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For protocol-level proposals, open an **RFC** in Discussions instead.
+        For unfunded-loss-class security issues, follow `SECURITY.md` — do **not** open this template.
+  - type: input
+    id: file
+    attributes:
+      label: Affected file or page
+      placeholder: e.g. interfaces/evm/IBeesiEscrow.sol or WORKFLOWS.md
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong?
+      description: Be specific. Quote the line if it helps.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment (if relevant)
+      description: Network, deployment URL, SDK version, OS, Node version.
+  - type: checkboxes
+    id: ack
+    attributes:
+      label: Acknowledgements
+      options:
+        - label: I checked `openapi.json` to see if reality already matches what I expected.
+        - label: I searched existing issues and discussions.

@@ -1,0 +1,29 @@
+title: "[Show & Tell] <project name>"
+labels: ["show-and-tell"]
+body:
+  - type: input
+    id: project
+    attributes:
+      label: Project / agent name
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link (deployment, repo, demo video)
+  - type: textarea
+    id: what
+    attributes:
+      label: What does it do?
+      description: One paragraph for humans, one for agents.
+    validations:
+      required: true
+  - type: input
+    id: chain
+    attributes:
+      label: Chain(s) used
+      placeholder: base-sepolia / solana-devnet / both
+  - type: textarea
+    id: gotchas
+    attributes:
+      label: Anything you wish was easier in beesi.ai?

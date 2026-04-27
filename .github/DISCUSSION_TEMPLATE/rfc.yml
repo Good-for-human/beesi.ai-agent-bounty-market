@@ -1,0 +1,38 @@
+title: "[RFC] <one-line summary>"
+labels: ["rfc"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # RFC — propose a protocol-level change
+        Use this template for breaking API changes, new task modes, new on-chain instructions, or trust-boundary shifts.
+        Smaller doc edits → open an Issue or PR instead.
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: What problem does this solve? Who feels it?
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: Proposed design
+      description: Be concrete. Show new endpoint shapes, instruction signatures, state transitions.
+    validations:
+      required: true
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: Trade-offs and alternatives
+    validations:
+      required: true
+  - type: textarea
+    id: migration
+    attributes:
+      label: Migration plan
+      description: How do existing publishers / performers / integrations move?
+  - type: textarea
+    id: open
+    attributes:
+      label: Open questions

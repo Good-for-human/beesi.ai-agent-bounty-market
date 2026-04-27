@@ -1,0 +1,263 @@
+{
+  "version": "0.1.0",
+  "name": "beesi_escrow",
+  "metadata": {
+    "description": "Beesi Escrow V2 — Solana / Anchor mirror of EVM BeesiEscrow.sol V3 (fee-in-escrow).",
+    "specSource": "Mirrors apps/web/contracts/BeesiEscrow.sol on Base. (taskKey, submissionKey) symmetry preserved.",
+    "license": "MIT"
+  },
+  "instructions": [
+    {
+      "name": "initConfig",
+      "docs": [
+        "Initialize the singleton Config PDA. Deployer becomes owner / operator_admin / pauser. Callable exactly once."
+      ],
+      "args": []
+    },
+    {
+      "name": "setOperator",
+      "docs": ["Toggle an operator's enabled flag. Caller must be owner or operator_admin."],
+      "args": [
+        { "name": "operator", "type": "publicKey" },
+        { "name": "enabled", "type": "bool" }
+      ]
+    },
+    {
+      "name": "setOperatorAdmin",
+      "args": [{ "name": "newAdmin", "type": "publicKey" }]
+    },
+    {
+      "name": "setPauser",
+      "args": [{ "name": "newPauser", "type": "publicKey" }]
+    },
+    {
+      "name": "transferOwnership",
+      "args": [{ "name": "newOwner", "type": "publicKey" }]
+    },
+    {
+      "name": "setPaused",
+      "args": [{ "name": "value", "type": "bool" }]
+    },
+    {
+      "name": "fundTask",
+      "docs": [
+        "Lock (reward + fee) * max from the publisher into the task vault.",
+        "Creates the TaskAccount and Vault PDAs. Reverts on duplicate task_key (init constraint)."
+      ],
+      "args": [
+        { "name": "taskKey", "type": { "array": ["u8", 32] } },
+        { "name": "rewardPerCompletion", "type": "u64" },
+        { "name": "feePerCompletion", "type": "u64" },
+        { "name": "maxInstances", "type": "u32" },
+        { "name": "feeRecipient", "type": "publicKey" },
+        { "name": "autoApproveAt", "type": "i64" }
+      ]
+    },
+    {
+      "name": "approveSubmission",
+      "docs": [
+        "Operator-mediated approval. Atomically transfers reward → performer and fee → fee_recipient.",
+        "(task_key, submission_key) is processed at most once via init-only Submission PDA."
+      ],
+      "args": [
+        { "name": "taskKey", "type": { "array": ["u8", 32] } },
+        { "name": "submissionKey", "type": { "array": ["u8", 32] } },
+        { "name": "performer", "type": "publicKey" }
+      ]
+    },
+    {
+      "name": "autoApproveSubmission",
+      "docs": [
+        "Same as approveSubmission but the program additionally enforces now ≥ auto_approve_at."
+      ],
+      "args": [
+        { "name": "taskKey", "type": { "array": ["u8", 32] } },
+        { "name": "submissionKey", "type": { "array": ["u8", 32] } },
+        { "name": "performer", "type": "publicKey" }
+      ]
+    },
+    {
+      "name": "rejectSubmission",
+      "docs": [
+        "Operator-mediated rejection. No funds move. Slot is NOT consumed."
+      ],
+      "args": [
+        { "name": "taskKey", "type": { "array": ["u8", 32] } },
+        { "name": "submissionKey", "type": { "array": ["u8", 32] } }
+      ]
+    },
+    {
+      "name": "refundRemaining",
+      "docs": [
+        "Returns all un-released funds (reward + fee for every un-released slot) to the publisher.",
+        "Allowed even when paused so locked funds are never trapped."
+      ],
+      "args": [
+        { "name": "taskKey", "type": { "array": ["u8", 32] } }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Config",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "owner", "type": "publicKey" },
+          { "name": "operatorAdmin", "type": "publicKey" },
+          { "name": "pauser", "type": "publicKey" },
+          { "name": "paused", "type": "bool" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "Operator",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "operator", "type": "publicKey" },
+          { "name": "enabled", "type": "bool" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "TaskAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "taskKey", "type": { "array": ["u8", 32] } },
+          { "name": "publisher", "type": "publicKey" },
+          { "name": "tokenMint", "type": "publicKey" },
+          { "name": "rewardPerCompletion", "type": "u64" },
+          { "name": "feePerCompletion", "type": "u64" },
+          { "name": "feeRecipient", "type": "publicKey" },
+          { "name": "maxInstances", "type": "u32" },
+          { "name": "releasedCount", "type": "u32" },
+          { "name": "autoApproveAt", "type": "i64" },
+          { "name": "totalFunded", "type": "u64" },
+          { "name": "totalReleased", "type": "u64" },
+          { "name": "totalRefunded", "type": "u64" },
+          { "name": "state", "type": { "defined": "TaskState" } },
+          { "name": "bump", "type": "u8" },
+          { "name": "vaultBump", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "Submission",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "taskKey", "type": { "array": ["u8", 32] } },
+          { "name": "submissionKey", "type": { "array": ["u8", 32] } },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "TaskState",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          { "name": "None" },
+          { "name": "Funded" },
+          { "name": "Closed" }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "TaskFunded",
+      "fields": [
+        { "name": "taskKey", "type": { "array": ["u8", 32] }, "index": false },
+        { "name": "publisher", "type": "publicKey", "index": false },
+        { "name": "tokenMint", "type": "publicKey", "index": false },
+        { "name": "rewardPerCompletion", "type": "u64", "index": false },
+        { "name": "feePerCompletion", "type": "u64", "index": false },
+        { "name": "maxInstances", "type": "u32", "index": false },
+        { "name": "totalFunded", "type": "u64", "index": false },
+        { "name": "feeRecipient", "type": "publicKey", "index": false },
+        { "name": "autoApproveAt", "type": "i64", "index": false }
+      ]
+    },
+    {
+      "name": "SubmissionApproved",
+      "fields": [
+        { "name": "taskKey", "type": { "array": ["u8", 32] }, "index": false },
+        { "name": "submissionKey", "type": { "array": ["u8", 32] }, "index": false },
+        { "name": "performer", "type": "publicKey", "index": false },
+        { "name": "rewardAmount", "type": "u64", "index": false },
+        { "name": "feeAmount", "type": "u64", "index": false },
+        { "name": "feeRecipient", "type": "publicKey", "index": false },
+        { "name": "autoApproved", "type": "bool", "index": false }
+      ]
+    },
+    {
+      "name": "SubmissionRejected",
+      "fields": [
+        { "name": "taskKey", "type": { "array": ["u8", 32] }, "index": false },
+        { "name": "submissionKey", "type": { "array": ["u8", 32] }, "index": false }
+      ]
+    },
+    {
+      "name": "TaskRefunded",
+      "fields": [
+        { "name": "taskKey", "type": { "array": ["u8", 32] }, "index": false },
+        { "name": "publisher", "type": "publicKey", "index": false },
+        { "name": "amount", "type": "u64", "index": false }
+      ]
+    },
+    { "name": "OperatorUpdated", "fields": [
+      { "name": "operator", "type": "publicKey", "index": false },
+      { "name": "enabled", "type": "bool", "index": false }
+    ]},
+    { "name": "OperatorAdminUpdated", "fields": [
+      { "name": "operatorAdmin", "type": "publicKey", "index": false }
+    ]},
+    { "name": "PauserUpdated", "fields": [
+      { "name": "pauser", "type": "publicKey", "index": false }
+    ]},
+    { "name": "PauseUpdated", "fields": [
+      { "name": "paused", "type": "bool", "index": false }
+    ]},
+    { "name": "OwnerTransferred", "fields": [
+      { "name": "previousOwner", "type": "publicKey", "index": false },
+      { "name": "newOwner", "type": "publicKey", "index": false }
+    ]}
+  ],
+  "errors": [
+    { "code": 6000, "name": "TaskKeyEmpty", "msg": "Task key must not be zero" },
+    { "code": 6001, "name": "RewardZero", "msg": "Reward per completion must be greater than zero" },
+    { "code": 6002, "name": "InstancesZero", "msg": "Max instances must be greater than zero" },
+    { "code": 6003, "name": "AutoApproveAtZero", "msg": "Auto-approve timestamp must be greater than zero" },
+    { "code": 6004, "name": "FeeRecipientRequired", "msg": "Fee recipient is required when fee > 0" },
+    { "code": 6005, "name": "TaskAlreadyFunded", "msg": "Task is already funded" },
+    { "code": 6006, "name": "TotalOverflow", "msg": "Total amount overflowed u64" },
+    { "code": 6007, "name": "TotalZero", "msg": "Total amount must be greater than zero" },
+    { "code": 6008, "name": "TaskNotFunded", "msg": "Task is not in Funded state" },
+    { "code": 6009, "name": "TaskNotFound", "msg": "Task does not exist" },
+    { "code": 6010, "name": "SubmissionAlreadyProcessed", "msg": "Submission already processed" },
+    { "code": 6011, "name": "PerformerEmpty", "msg": "Performer must not be zero address" },
+    { "code": 6012, "name": "PerformerMismatch", "msg": "Performer token account does not match performer" },
+    { "code": 6013, "name": "FeeRecipientMismatch", "msg": "Fee recipient token account does not match recorded fee recipient" },
+    { "code": 6014, "name": "PublisherMismatch", "msg": "Publisher token account owner does not match recorded publisher" },
+    { "code": 6015, "name": "AutoApproveNotReady", "msg": "Auto-approve deadline has not been reached" },
+    { "code": 6016, "name": "TaskInstancesFull", "msg": "Task instances already full" },
+    { "code": 6017, "name": "NoRemainingBalance", "msg": "No remaining balance to refund" },
+    { "code": 6018, "name": "EscrowPaused", "msg": "Escrow is paused" },
+    { "code": 6019, "name": "OnlyOwner", "msg": "Caller is not the owner" },
+    { "code": 6020, "name": "OnlyOperator", "msg": "Caller is not an operator" },
+    { "code": 6021, "name": "OnlyOperatorAdmin", "msg": "Caller is not the operator admin or owner" },
+    { "code": 6022, "name": "OnlyPauser", "msg": "Caller is not the pauser or owner" },
+    { "code": 6023, "name": "ZeroOperator", "msg": "Operator address must not be zero" },
+    { "code": 6024, "name": "ZeroOperatorAdmin", "msg": "Operator admin must not be zero" },
+    { "code": 6025, "name": "ZeroPauser", "msg": "Pauser must not be zero" },
+    { "code": 6026, "name": "ZeroOwner", "msg": "Owner must not be zero" },
+    { "code": 6027, "name": "OperatorMismatch", "msg": "Operator record does not match the supplied operator pubkey" }
+  ]
+}

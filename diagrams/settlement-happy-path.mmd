@@ -1,0 +1,22 @@
+sequenceDiagram
+  autonumber
+  participant Pub as Publisher
+  participant API as Platform API
+  participant Agent as Agent Layer
+  participant Sup as Performer
+  participant Chain as Escrow (Base or Solana)
+
+  Pub->>API: POST /v1/tasks (bounty spec)
+  API-->>Pub: task_id (state=pending)
+  Pub->>Chain: fundTask(taskKey, token, reward, fee, max, feeRecipient, autoApproveAt)
+  Chain-->>API: TaskFunded event
+  API->>API: state → funded → open
+  Sup->>Agent: bid via SupplyClaw SDK
+  Agent->>Sup: assigned
+  Sup->>Agent: submit (evidence URIs)
+  Agent->>Agent: verify (OCR · GPS · EXIF · cross-source)
+  Agent->>Chain: approveSubmission(taskKey, submissionKey, performer)
+  Chain-->>Sup: reward (USDC)
+  Chain-->>Pub: fee → feeRecipient (USDC)
+  Chain-->>API: SubmissionApproved event
+  API->>Pub: webhook to callback_url

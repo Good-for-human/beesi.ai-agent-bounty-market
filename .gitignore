@@ -2,3 +2,17 @@
 Thumbs.db
 *.swp
 .idea/
+.vscode/
+
+# Node / examples
+node_modules/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+
+# OS / editor scratch
+*.log
+.npm/
+.yarn/
+.pnpm-store/
