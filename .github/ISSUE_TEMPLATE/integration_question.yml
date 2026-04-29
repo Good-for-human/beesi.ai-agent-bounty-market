@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         Quick checks before opening:
-        - Did you read `interfaces/api/openapi-summary.md`?
+        - Did you read `interfaces/api/routes.md`?
         - Did you read the relevant runnable example in `examples/`?
         - Is there an answer in `GLOSSARY.md`?
   - type: textarea

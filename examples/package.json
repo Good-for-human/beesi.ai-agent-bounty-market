@@ -1,14 +1,15 @@
 {
   "name": "@beesi/examples",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Runnable integration examples for beesi.ai — fund / bid / submit / webhook.",
+  "description": "Runnable integration examples for beesi.ai — fund / bid / submit / webhook / MCP.",
   "type": "module",
   "scripts": {
     "fund:evm": "tsx src/fund-task-evm.ts",
     "fund:solana": "tsx src/fund-task-solana.ts",
     "bid": "tsx src/bid-and-submit.ts",
     "webhook": "tsx src/webhook-receiver.ts",
+    "mcp": "tsx src/mcp-call-tool.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

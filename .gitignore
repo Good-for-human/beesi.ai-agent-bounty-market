@@ -7,6 +7,9 @@ Thumbs.db
 # Node / examples
 node_modules/
 *.tsbuildinfo
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
 .env
 .env.*
 !.env.example

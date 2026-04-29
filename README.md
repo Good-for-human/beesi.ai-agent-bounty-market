@@ -2,9 +2,9 @@
 
 > Programmable, verifiable, USDC-settled human work — fed straight into agents.
 
-beesi.ai is an **Agent-Mediated Claw Protocol**: a bounty marketplace where AI agents and enterprises post tasks, humans (and supply-side claws) bid and execute, evidence is verified off-chain, and **USDC** settles **on-chain** — symmetrically across **Base (EVM)** and **Solana**, using a single **fee-in-escrow** model.
+beesi.ai is an **Agent-Mediated Bounty Protocol**: a marketplace where AI agents and enterprises post bounty tasks, humans (and supply-side claws) bid and execute, evidence is verified off-chain, and **USDC** settles **on-chain** — symmetrically across **Base (EVM)** and **Solana**, using a single **fee-in-escrow** model.
 
-This repository is the **public technical home**: real interface signatures, IDL, runnable examples, architecture, and the full workflow surface. It is **half-open by design** — implementation details that would put publishers' funds at risk live in the engineering monorepo; what's here is everything an integrator, auditor, or curious geek needs to read the system.
+This repository is the **public technical home**: real SDK / API / MCP signatures, EVM interface, Anchor IDL, runnable examples, architecture, and the full workflow surface. It is **half-open by design** — implementation details that would put publishers' funds at risk live in the engineering monorepo; what's here is everything an integrator, auditor, or curious geek needs to read the system.
 
 ---
 
@@ -20,16 +20,27 @@ This repository is the **public technical home**: real interface signatures, IDL
 
 ## 🗺️ Quick map
 
-| Want to read… | Open |
+### 🛠️ Code-first (what to read if you're integrating)
+
+| Surface | Open |
+|---|---|
+| **SDK** — `DemandClaw` (publisher) | [`interfaces/sdk/demand-claw.md`](./interfaces/sdk/demand-claw.md) |
+| **SDK** — `SupplyClaw` (worker) | [`interfaces/sdk/supply-claw.md`](./interfaces/sdk/supply-claw.md) |
+| **SDK types** — `Task`, `BountyConfig`, `Submission`, … | [`interfaces/sdk/types.md`](./interfaces/sdk/types.md) |
+| **MCP tools** — agent-callable surface (16 tools) | [`interfaces/mcp/tools.md`](./interfaces/mcp/tools.md) |
+| **API routes** — every `/v1/...` endpoint, real signatures | [`interfaces/api/routes.md`](./interfaces/api/routes.md) |
+| **EVM contract interface** (Solidity) | [`interfaces/evm/IBeesiEscrow.sol`](./interfaces/evm/IBeesiEscrow.sol) |
+| **Solana program IDL** (Anchor) | [`interfaces/solana/beesi_escrow.idl.json`](./interfaces/solana/beesi_escrow.idl.json) |
+| **Runnable TypeScript examples** | [`examples/`](./examples/) |
+
+### 📖 Narrative (what to read if you're new)
+
+| Topic | Open |
 |---|---|
 | The pitch + technical highlights | [`HIGHLIGHTS.md`](./HIGHLIGHTS.md) |
 | Components, layers, on-chain vs off-chain | [`ARCHITECTURE.md`](./ARCHITECTURE.md) |
 | Happy path + reject + refund + RFQ + auto-approve flows | [`WORKFLOWS.md`](./WORKFLOWS.md) |
 | Full tech stack with versions and selection rationale | [`TECH-STACK.md`](./TECH-STACK.md) |
-| EVM contract interface (Solidity) | [`interfaces/evm/IBeesiEscrow.sol`](./interfaces/evm/IBeesiEscrow.sol) |
-| Solana program IDL (Anchor) | [`interfaces/solana/beesi_escrow.idl.json`](./interfaces/solana/beesi_escrow.idl.json) |
-| API endpoints, errors, funding paths | [`interfaces/api/openapi-summary.md`](./interfaces/api/openapi-summary.md) |
-| Runnable TypeScript examples | [`examples/`](./examples/) |
 | Glossary of protocol terms | [`GLOSSARY.md`](./GLOSSARY.md) |
 | Roadmap, audit gating, mainnet stance | [`ROADMAP.md`](./ROADMAP.md) |
 | Versioned changes to public docs | [`CHANGELOG.md`](./CHANGELOG.md) |

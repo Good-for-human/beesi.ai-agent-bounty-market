@@ -129,4 +129,4 @@ The chain **double-checks** the deadline itself — even an over-eager scheduler
 
 The on-chain effect is identical. Path B is what the MCP server's `fund_task_custodial` tool wraps.
 
-See [`interfaces/api/openapi-summary.md`](./interfaces/api/openapi-summary.md) for exact request bodies.
+See [`interfaces/api/routes.md`](./interfaces/api/routes.md) for exact request bodies.

@@ -55,7 +55,7 @@ beesi.ai is built so a coding agent can integrate end-to-end without reading a t
 - **TypeScript SDK** has `demand.fundTaskFromWallet(taskId)` and `supply.bidAndSubmit(...)` — single-call ergonomics over the same routes.
 - **Errors are programmatic.** `4xx` responses include `error`, `code`, `field`, and `details` (Zod flatten output for task routes).
 
-See [`interfaces/api/openapi-summary.md`](./interfaces/api/openapi-summary.md).
+See [`interfaces/api/routes.md`](./interfaces/api/routes.md).
 
 ---
 
